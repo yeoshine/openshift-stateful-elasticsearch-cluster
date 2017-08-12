@@ -1,12 +1,8 @@
 # Stateful Elasticsearch Cluster on Openshift
 
-![Openshift](img/openshift.png)
-
-[Openshift Origin](https://www.openshift.org/) is built around a core of [Docker](https://www.docker.com/) container packaging and [Kubernetes](https://kubernetes.io/) container cluster management, Origin is also augmented by application lifecycle management functionality and [DevOps](https://en.wikipedia.org/wiki/DevOps) tooling. Origin provides a complete open source container application platform.
+![Openshift](img/openshift.png) [Openshift Origin](https://www.openshift.org/) is built around a core of [Docker](https://www.docker.com/) container packaging and [Kubernetes](https://kubernetes.io/) container cluster management, Origin is also augmented by application lifecycle management functionality and [DevOps](https://en.wikipedia.org/wiki/DevOps) tooling. Origin provides a complete open source container application platform.
 
 At [Linkbynet](http://linkbynet.com/) we're using [Openshift](http://thewatchmakers.fr/openshift-fail-fast-succeed-faster/) and [devops](http://thewatchmakers.fr/devops-cest-pas-faux/) for some of our customers and tools.
-
-![Linkbnyet](img/linkbynet.png) 
 
 By convention wisdom says that container are stateless. But that's not true anymore. Kubernetes 1.5 (Openshift Origin 1.5.1 embeded kubernetes 1.5.2) includes the new StatefulSet API object (in previous versions, StatefulSet was known as PetSet). With StatefulSets, Kubernetes makes it much easier to run stateful workloads such as databases.
 
@@ -31,14 +27,14 @@ In this use case, we will deploy a stateful [elasticsearch cluster](https://www.
 
 ## Abstract
 
-![Elasticsearch](img/elastic.png)
-
 Our Elasticsearch cluster will be :
 * Three `Master` nodes - intended for clustering management only, no data, no HTTP API
 * Two `Client` nodes - intended for client usage, no data, with HTTP API
 * Two `Data` nodes - intended for storing and indexing data, no HTTP API
 
-Statefulset are **Technology Previous** on Openshift Origin 1.5, it's not anymore on 1.6. 
+Statefulset are **Technology Previous** on Openshift Origin 1.5, it's not anymore on 1.6.
+
+![Elasticsearch](img/elastic.png) 
 
 ## Pre-requisites
 
@@ -255,8 +251,9 @@ statefulset "es17-data" created
 
 ```
 
-![Kubernetes](img/kubernetes.png) Openshift Origin (in fact behind the scene it's Kubernetes which does the work) creates the pods for a StatefulSet one at a time, waiting for each to come up before starting the next, so it may take a few minutes for all pods to be provisioned.
+Openshift Origin (in fact behind the scene it's Kubernetes which does the work) creates the pods for a StatefulSet one at a time, waiting for each to come up before starting the next, so it may take a few minutes for all pods to be provisioned.
 
+![Kubernetes](img/kubernetes.png)
 
 ## Check everything
 
