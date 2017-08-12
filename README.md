@@ -3,7 +3,7 @@
 ![Linkbynet](img/linkbynet.png)
 ![Openshift](img/openshift.png)
 ![Kubernetes](img/kubernetes.png)
-![Docker](img/docker.png)
+![Docker](img/docker.jpg)
 
 [Openshift Origin](https://www.openshift.org/) is built around a core of [Docker](https://www.docker.com/) container packaging and [Kubernetes](https://kubernetes.io/) container cluster management, Origin is also augmented by application lifecycle management functionality and [DevOps](https://en.wikipedia.org/wiki/DevOps) tooling. Origin provides a complete open source container application platform.
 
