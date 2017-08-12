@@ -1,6 +1,8 @@
+![Openshift](img/openshift.png)
+
 # Stateful Elasticsearch Cluster on Openshift
 
-![Openshift](img/openshift.png) [Openshift Origin](https://www.openshift.org/) is built around a core of [Docker](https://www.docker.com/) container packaging and [Kubernetes](https://kubernetes.io/) container cluster management, Origin is also augmented by application lifecycle management functionality and [DevOps](https://en.wikipedia.org/wiki/DevOps) tooling. Origin provides a complete open source container application platform.
+[Openshift Origin](https://www.openshift.org/) is built around a core of [Docker](https://www.docker.com/) container packaging and [Kubernetes](https://kubernetes.io/) container cluster management, Origin is also augmented by application lifecycle management functionality and [DevOps](https://en.wikipedia.org/wiki/DevOps) tooling. Origin provides a complete open source container application platform.
 
 At [Linkbynet](http://linkbynet.com/) we're using [Openshift](http://thewatchmakers.fr/openshift-fail-fast-succeed-faster/) and [devops](http://thewatchmakers.fr/devops-cest-pas-faux/) for some of our customers and tools.
 
@@ -40,8 +42,6 @@ Statefulset are **Technology Previous** on Openshift Origin 1.5, it's not anymor
 
 * [Openshift Origin 1.5 cluster](https://docs.openshift.org/1.5/install_config/install/planning.html)
 * [Configure your cluster](https://docs.openshift.org/1.5/install_config/configuring_aws.html) for AWS
-
-![Docker](img/docker.jpg) 
 
 ## Connect to openshift
 
@@ -253,8 +253,6 @@ statefulset "es17-data" created
 
 Openshift Origin (in fact behind the scene it's Kubernetes which does the work) creates the pods for a StatefulSet one at a time, waiting for each to come up before starting the next, so it may take a few minutes for all pods to be provisioned.
 
-![Kubernetes](img/kubernetes.png)
-
 ## Check everything
 
 ![Elasticsearch cluster on openshift console](img/elk-cluster.jpg)
@@ -324,3 +322,6 @@ If you want to go further, go see :
  * [pires/kubernetes-elasticsearch-cluster](https://github.com/pires/kubernetes-elasticsearch-cluster),
  * [Kubernetes tutorials on stateful-application](https://kubernetes.io/docs/tutorials/stateful-application/basic-stateful-set/#creating-a-statefulset).
  * [Build mongodb on kubernetes with statefulsets](http://blog.kubernetes.io/2017/01/running-mongodb-on-kubernetes-with-statefulsets.html)
+ 
+ 
+![Kubernetes](img/kubernetes.png)
