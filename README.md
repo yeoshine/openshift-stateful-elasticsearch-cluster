@@ -1,8 +1,13 @@
 # Stateful Elasticsearch Cluster on Openshift
 
+![Linkbynet](http://img.icbdr.com/images/FR/images/lesjeudis.com-linkbynet.png = 250x)
 ![Openshift](https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/OpenShift-LogoType.svg/200px-OpenShift-LogoType.svg.png?raw=true)
+![Kubernetes](http://2.bp.blogspot.com/-4UmY3-Knitc/VMbj4X2HY-I/AAAAAAAAAyY/MfkntDzhFDc/s1600/KubernetesLogo.png = 200x)
+![Docker](https://www.docker.com/sites/default/files/social/docker-facebook-share.png = 200x)
 
 [Openshift Origin](https://www.openshift.org/) is built around a core of [Docker](https://www.docker.com/) container packaging and [Kubernetes](https://kubernetes.io/) container cluster management, Origin is also augmented by application lifecycle management functionality and [DevOps](https://en.wikipedia.org/wiki/DevOps) tooling. Origin provides a complete open source container application platform.
+
+
 
 At [Linkbynet](http://linkbynet.com/) we're using [Openshift](http://thewatchmakers.fr/openshift-fail-fast-succeed-faster/) and [devops](http://thewatchmakers.fr/devops-cest-pas-faux/) for some of our customers and tools.
 
