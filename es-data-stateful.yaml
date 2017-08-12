@@ -1,0 +1,73 @@
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  name: es17-data
+  labels:
+    component: elasticsearch17
+    role: data
+spec:
+  serviceName: elasticsearch17-data
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        component: elasticsearch17
+        role: data
+    spec:
+      initContainers:
+      - name: init-sysctl
+        image: busybox
+        imagePullPolicy: IfNotPresent
+        command: ["sysctl", "-w", "vm.max_map_count=262144"]
+        securityContext:
+          privileged: true
+      containers:
+      - name: es-data
+        securityContext:
+          privileged: false
+          capabilities:
+            add:
+              - IPC_LOCK
+              - SYS_RESOURCE
+        image: quay.io/pires/docker-elasticsearch-kubernetes:1.7.2
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: "KUBERNETES_CA_CERTIFICATE_FILE"
+          value: "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
+        - name: "CLUSTER_NAME"
+          value: "elasticsearch"
+        - name: NODE_MASTER
+          value: "false"
+        - name: NODE_INGEST
+          value: "false"
+        - name: HTTP_ENABLE
+          value: "false"
+        - name: "ES_JAVA_OPTS"
+          value: "-Xms1024m -Xmx1024m"
+        - name: "DISCOVERY_SERVICE"
+          value: "elasticsearch17-discovery"
+        ports:
+        - containerPort: 9300
+          name: transport
+          protocol: TCP
+        volumeMounts:
+        - name: storage
+          mountPath: /data
+  volumeClaimTemplates:
+  - metadata:
+      name: storage
+      annotations:
+        volume.beta.kubernetes.io/storage-class: ssd
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 20Gi
