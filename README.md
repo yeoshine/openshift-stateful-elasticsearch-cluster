@@ -250,6 +250,7 @@ Openshift Origin (in fact behind the scene it's Kubernetes which does the work) 
 
 ## Check everything
 
+![Elasticsearch cluster on openshift console](elk-cluster.jpg?raw=true)
 
 # List of services
 
