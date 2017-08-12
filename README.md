@@ -1,31 +1,39 @@
 # Stateful Elasticsearch Cluster on Openshift
 
-![Linkbynet](http://img.icbdr.com/images/FR/images/lesjeudis.com-linkbynet.png = 250x)
-![Openshift](https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/OpenShift-LogoType.svg/200px-OpenShift-LogoType.svg.png?raw=true)
-![Kubernetes](http://2.bp.blogspot.com/-4UmY3-Knitc/VMbj4X2HY-I/AAAAAAAAAyY/MfkntDzhFDc/s1600/KubernetesLogo.png = 200x)
-![Docker](https://www.docker.com/sites/default/files/social/docker-facebook-share.png = 200x)
+![Linkbynet](img/linkbynet.png)
+![Openshift](img/openshift.png)
+![Kubernetes](img/kubernetes.png)
+![Docker](img/docker.png)
 
 [Openshift Origin](https://www.openshift.org/) is built around a core of [Docker](https://www.docker.com/) container packaging and [Kubernetes](https://kubernetes.io/) container cluster management, Origin is also augmented by application lifecycle management functionality and [DevOps](https://en.wikipedia.org/wiki/DevOps) tooling. Origin provides a complete open source container application platform.
-
-
 
 At [Linkbynet](http://linkbynet.com/) we're using [Openshift](http://thewatchmakers.fr/openshift-fail-fast-succeed-faster/) and [devops](http://thewatchmakers.fr/devops-cest-pas-faux/) for some of our customers and tools.
 
 By convention wisdom says that container are stateless. But that's not true anymore. Kubernetes 1.5 (Openshift Origin 1.5.1 embeded kubernetes 1.5.2) includes the new StatefulSet API object (in previous versions, StatefulSet was known as PetSet). With StatefulSets, Kubernetes makes it much easier to run stateful workloads such as databases.
 
-You find some really great ressource out there about how to do it :
-
-* [Build mongodb on kubernetes with statefulsets](http://blog.kubernetes.io/2017/01/running-mongodb-on-kubernetes-with-statefulsets.html)
-* [Build elasticsearch cluster on kubernetes](https://github.com/pires/kubernetes-elasticsearch-cluster)
-
 In this use case, we will deploy a stateful [elasticsearch cluster](https://www.elastic.co/products/elasticsearch) on Openshift Origin on [Amazon Aws](https://aws.amazon.com/).
+
+
+![Kubernetes](http://2.bp.blogspot.com/-4UmY3-Knitc/VMbj4X2HY-I/AAAAAAAAAyY/MfkntDzhFDc/s1600/KubernetesLogo.png = 200x)
+![Docker](https://www.docker.com/sites/default/files/social/docker-facebook-share.png = 200x)
 
 
 ### Table of Contents
 
-
+* [Abstract](#abstract)
 * [Pre-Requisites](#pre-requisites)
-
+* [Connect](#connect-to-openshift)
+* [Create project](#create-a-new-project)
+* [Create SecurityContextConstraints](#create-securitycontextconstraints)
+* [Allow user read of kubernetes API](#add-scc-context-to-allow-user-read-of-kubernetes-api)
+* [Discovery service](#deploy-discovery-service)
+* [Client service](#deploy-client-service)
+* [Master nodes](#deploy-master-nodes)
+* [Client nodes](#deploy-client-nodes)
+* [StorageClass](#create-storageclass)
+* [Headless Service](#headless-service)
+* [Data nodes](#deploy-data-nodes)
+* [Checks](#check-everything)
 
 ## Abstract
 
@@ -255,7 +263,7 @@ Openshift Origin (in fact behind the scene it's Kubernetes which does the work) 
 
 ## Check everything
 
-![Elasticsearch cluster on openshift console](elk-cluster.jpg?raw=true)
+![Elasticsearch cluster on openshift console](img/elk-cluster.jpg)
 
 # List of services
 
@@ -317,4 +325,8 @@ And check you cluster status elasticsearch cluster status :
 }
 ```
 
-If you want to go further, go see [pires/kubernetes-elasticsearch-cluster](https://github.com/pires/kubernetes-elasticsearch-cluster), [Kubernetes tutorials on stateful-application](https://kubernetes.io/docs/tutorials/stateful-application/basic-stateful-set/#creating-a-statefulset).
+If you want to go further, go see :
+ 
+ * [pires/kubernetes-elasticsearch-cluster](https://github.com/pires/kubernetes-elasticsearch-cluster),
+ * [Kubernetes tutorials on stateful-application](https://kubernetes.io/docs/tutorials/stateful-application/basic-stateful-set/#creating-a-statefulset).
+ * [Build mongodb on kubernetes with statefulsets](http://blog.kubernetes.io/2017/01/running-mongodb-on-kubernetes-with-statefulsets.html)
