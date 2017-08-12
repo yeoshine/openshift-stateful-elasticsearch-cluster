@@ -1,17 +1,17 @@
 apiVersion: apps/v1beta1
 kind: StatefulSet
 metadata:
-  name: es24-data
+  name: es-data
   labels:
-    component: elasticsearch24
+    component: elasticsearch
     role: data
 spec:
-  serviceName: elasticsearch24-data
+  serviceName: elasticsearch-data
   replicas: 2
   template:
     metadata:
       labels:
-        component: elasticsearch24
+        component: elasticsearch
         role: data
     spec:
       initContainers:
@@ -29,7 +29,7 @@ spec:
             add:
               - IPC_LOCK
               - SYS_RESOURCE
-        image: quay.io/pires/docker-elasticsearch-kubernetes:1.7.2
+        image: quay.io/pires/docker-elasticsearch-kubernetes:5.5.1
         imagePullPolicy: IfNotPresent
         env:
         - name: NAMESPACE
@@ -40,8 +40,6 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.name
-        - name: "KUBERNETES_CA_CERTIFICATE_FILE"
-          value: "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
         - name: "CLUSTER_NAME"
           value: "elasticsearch"
         - name: NODE_MASTER
@@ -53,7 +51,7 @@ spec:
         - name: "ES_JAVA_OPTS"
           value: "-Xms1024m -Xmx1024m"
         - name: "DISCOVERY_SERVICE"
-          value: "elasticsearch24-discovery"
+          value: "elasticsearch-discovery"
         ports:
         - containerPort: 9300
           name: transport

@@ -1,26 +1,27 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: es24-client
+  name: es-client
   labels:
-    component: elasticsearch24
+    component: elasticsearch
     role: client
 spec:
   replicas: 2
   template:
     metadata:
       labels:
-        component: elasticsearch24
+        component: elasticsearch
         role: client
     spec:
       containers:
-      - name: es24-client
+      - name: es-client
         securityContext:
           privileged: true
           capabilities:
             add:
               - IPC_LOCK
-        image: quay.io/pires/docker-elasticsearch-kubernetes:2.4.1
+              - SYS_RESOURCE
+        image: quay.io/pires/docker-elasticsearch-kubernetes:5.5.1
         imagePullPolicy: IfNotPresent
         env:
         - name: NAMESPACE
@@ -28,17 +29,17 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: "CLUSTER_NAME"
-          value: "myesdb"
+          value: "elasticsearch"
         - name: NODE_MASTER
           value: "false"
         - name: NODE_DATA
           value: "false"
         - name: HTTP_ENABLE
           value: "true"
-        - name: ES_HEAP_SIZE
-          value: "256m"
+        - name: ES_JAVA_OPTS
+          value: "-Xms256m -Xmx256m"
         - name: "DISCOVERY_SERVICE"
-          value: "elasticsearch24-discovery"
+          value: "elasticsearch-discovery"
         ports:
         - containerPort: 9200
           name: http

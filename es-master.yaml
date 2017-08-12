@@ -1,26 +1,27 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: es24-master
+  name: es-master
   labels:
-    component: elasticsearch24
+    component: elasticsearch
     role: master
 spec:
   replicas: 3
   template:
     metadata:
       labels:
-        component: elasticsearch24
+        component: elasticsearch
         role: master
     spec:
       containers:
-      - name: es24-master
+      - name: es-master
         securityContext:
           privileged: true
           capabilities:
             add:
               - IPC_LOCK
-        image: quay.io/pires/docker-elasticsearch-kubernetes:2.4.1
+              - SYS_RESOURCE
+        image: quay.io/pires/docker-elasticsearch-kubernetes:5.5.1
         imagePullPolicy: IfNotPresent
         env:
         - name: NAMESPACE
@@ -28,7 +29,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: "CLUSTER_NAME"
-          value: "myesdb"
+          value: "elasticsearch"
         - name: "NUMBER_OF_MASTERS"
           value: "2"
         - name: NODE_MASTER
@@ -40,7 +41,7 @@ spec:
         - name: ES_HEAP_SIZE
           value: "256m"
         - name: "DISCOVERY_SERVICE"
-          value: "elasticsearch24-discovery"
+          value: "elasticsearch-discovery"
         ports:
         - containerPort: 9300
           name: transport
