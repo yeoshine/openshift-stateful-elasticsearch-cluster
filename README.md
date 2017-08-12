@@ -117,7 +117,7 @@ The discovery service is used by the Kubernetes cloud plugin to discover the mem
 
 ```bash
 $ oc create -f es-discovery-svc.yaml
-service "elasticsearch17-discovery" created
+service "elasticsearch24-discovery" created
 
 ```
 ## Deploy client service
@@ -126,7 +126,7 @@ That service will loadbalance between all elasticsearch instance to give you acc
 
 ```bash
 $ oc create -f es-svc.yaml
-service "elasticsearch17" created
+service "elasticsearch24" created
 
 ```
 
@@ -134,7 +134,7 @@ service "elasticsearch17" created
 
 ```bash
 $ oc create -f es-master.yaml
-deployment "es17-master" created
+deployment "es24-master" created
 
 ```
 
@@ -144,7 +144,7 @@ Wait until es-master deployment is provisioned, and
 
 ```bash
 $ oc create -f es-client.yaml
-deployment "es17-client" created
+deployment "es24-client" created
 
 ```
 
@@ -194,9 +194,9 @@ The configuration for the Headless Service looks like this [`es-data-svc.yaml`](
 apiVersion: v1
 kind: Service
 metadata:
-  name: elasticsearch17-data
+  name: elasticsearch24-data
   labels:
-    component: elasticsearch17
+    component: elasticsearch24
     role: data
 spec:
   ports:
@@ -204,7 +204,7 @@ spec:
     name: transport
   clusterIP: None
   selector:
-    component: elasticsearch17
+    component: elasticsearch24
     role: data
 ```
 
@@ -213,7 +213,7 @@ You can tell this is a Headless Service because the clusterIP is set to “None.
 
 ```bash
 $ oc create -f es-data-svc.yaml
-service "elasticsearch17-data" created
+service "elasticsearch24-data" created
 
 ```
 
@@ -247,7 +247,7 @@ The [`es-data-stateful.yaml`](es-data-stateful.yaml) file contains a volumeClaim
 
 ```bash
 $ oc create -f es-data-stateful.yaml
-statefulset "es17-data" created
+statefulset "es24-data" created
 
 ```
 
@@ -262,9 +262,9 @@ Openshift Origin (in fact behind the scene it's Kubernetes which does the work) 
 ```bash
 $ oc get services
 NAME                        CLUSTER-IP       EXTERNAL-IP        PORT(S)          AGE
-elasticsearch17             172.30.56.239    a055729f57f1d...   9200:32029/TCP   49m
-elasticsearch17-data        None             <none>             9300/TCP         38m
-elasticsearch17-discovery   172.30.151.107   <none>             9300/TCP         50m
+elasticsearch24             172.30.56.239    a055729f57f1d...   9200:32029/TCP   49m
+elasticsearch24-data        None             <none>             9300/TCP         38m
+elasticsearch24-discovery   172.30.151.107   <none>             9300/TCP         50m
 ```
 
 # List of pods
@@ -274,13 +274,13 @@ List of pods, 3 masters, 2 clients and 2 data nodes
 ```bash
 $ oc get pods                                                                                                                         ~/Lbn/github/openshift-stateful-elasticsearch-cluster-on-aws
 NAME                           READY     STATUS    RESTARTS   AGE
-es17-client-3622950126-93r2z   1/1       Running   0          39m
-es17-client-3622950126-gqzbd   1/1       Running   0          39m
-es17-data-0                    1/1       Running   0          4m
-es17-data-1                    1/1       Running   0          3m
-es17-master-548006985-bzbwr    1/1       Running   0          41m
-es17-master-548006985-t23kh    1/1       Running   0          41m
-es17-master-548006985-zjzjb    1/1       Running   0          41m
+es24-client-3622950126-93r2z   1/1       Running   0          39m
+es24-client-3622950126-gqzbd   1/1       Running   0          39m
+es24-data-0                    1/1       Running   0          4m
+es24-data-1                    1/1       Running   0          3m
+es24-master-548006985-bzbwr    1/1       Running   0          41m
+es24-master-548006985-t23kh    1/1       Running   0          41m
+es24-master-548006985-zjzjb    1/1       Running   0          41m
 ```
 
 # List of pvc
@@ -290,8 +290,8 @@ You can see the persistent storage created :
 ```bash
 $ oc get pvc                                                                                                                              ~/Lbn/github/openshift-stateful-elasticsearch-cluster-on-aws
 NAME                  STATUS    VOLUME                                     CAPACITY   ACCESSMODES   AGE
-storage-es17-data-0   Bound     pvc-2d490b99-7f23-11e7-97c6-0234a946c861   20Gi       RWO           3m
-storage-es17-data-1   Bound     pvc-2d5729ba-7f23-11e7-97c6-0234a946c861   20Gi       RWO           3m
+storage-es24-data-0   Bound     pvc-2d490b99-7f23-11e7-97c6-0234a946c861   20Gi       RWO           3m
+storage-es24-data-1   Bound     pvc-2d5729ba-7f23-11e7-97c6-0234a946c861   20Gi       RWO           3m
 ```
 
 # Check elasticsearch status

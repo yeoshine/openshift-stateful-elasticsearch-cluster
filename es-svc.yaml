@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: elasticsearch17
+  name: elasticsearch24
   labels:
-    component: elasticsearch17
+    component: elasticsearch24
     role: client
 spec:
   type: LoadBalancer
   selector:
-    component: elasticsearch17
+    component: elasticsearch24
     role: client
   ports:
   - name: http

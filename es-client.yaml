@@ -1,58 +1,44 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: es17-client
+  name: es24-client
   labels:
-    component: elasticsearch17
+    component: elasticsearch24
     role: client
 spec:
   replicas: 2
   template:
     metadata:
       labels:
-        component: elasticsearch17
+        component: elasticsearch24
         role: client
     spec:
-      initContainers:
-      - name: init-sysctl
-        image: busybox
-        imagePullPolicy: IfNotPresent
-        command: ["sysctl", "-w", "vm.max_map_count=262144"]
+      containers:
+      - name: es24-client
         securityContext:
           privileged: true
-      containers:
-      - name: es-client
-        securityContext:
-          privileged: false
           capabilities:
             add:
               - IPC_LOCK
-              - SYS_RESOURCE
-        image: quay.io/pires/docker-elasticsearch-kubernetes:1.7.2
-        imagePullPolicy: Always
+        image: quay.io/pires/docker-elasticsearch-kubernetes:2.4.1
+        imagePullPolicy: IfNotPresent
         env:
         - name: NAMESPACE
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
-        - name: NODE_NAME
-          valueFrom:
-            fieldRef:
-              fieldPath: metadata.name
-        - name: "KUBERNETES_CA_CERTIFICATE_FILE"
-          value: "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
         - name: "CLUSTER_NAME"
-          value: "elasticsearch"
+          value: "myesdb"
         - name: NODE_MASTER
           value: "false"
         - name: NODE_DATA
           value: "false"
         - name: HTTP_ENABLE
           value: "true"
-        - name: "ES_JAVA_OPTS"
-          value: "-Xms128m -Xmx128m"
+        - name: ES_HEAP_SIZE
+          value: "256m"
         - name: "DISCOVERY_SERVICE"
-          value: "elasticsearch17-discovery"
+          value: "elasticsearch24-discovery"
         ports:
         - containerPort: 9200
           name: http

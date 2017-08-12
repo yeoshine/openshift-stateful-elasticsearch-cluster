@@ -1,17 +1,17 @@
 apiVersion: apps/v1beta1
 kind: StatefulSet
 metadata:
-  name: es17-data
+  name: es24-data
   labels:
-    component: elasticsearch17
+    component: elasticsearch24
     role: data
 spec:
-  serviceName: elasticsearch17-data
+  serviceName: elasticsearch24-data
   replicas: 2
   template:
     metadata:
       labels:
-        component: elasticsearch17
+        component: elasticsearch24
         role: data
     spec:
       initContainers:
@@ -53,7 +53,7 @@ spec:
         - name: "ES_JAVA_OPTS"
           value: "-Xms1024m -Xmx1024m"
         - name: "DISCOVERY_SERVICE"
-          value: "elasticsearch17-discovery"
+          value: "elasticsearch24-discovery"
         ports:
         - containerPort: 9300
           name: transport
