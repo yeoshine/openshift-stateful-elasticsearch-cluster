@@ -148,7 +148,7 @@ deployment "es-client" created
 
 ```
 
-## Create StorageClass
+## Create StorageClass 这块暂时不用
 
 The StorageClass resource object describes and classifies storage that can be requested, as well as provides a means for passing parameters for dynamically provisioned storage on demand. StorageClass objects can also serve as a management mechanism for controlling different levels of storage and access to the storage (https://docs.openshift.org/1.5/install_config/persistent_storage/dynamically_provisioning_pvs.html).
 
