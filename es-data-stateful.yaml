@@ -63,7 +63,7 @@ spec:
   - metadata:
       name: storage
       annotations:
-        volume.beta.kubernetes.io/storage-class: ssd
+        volume.beta.kubernetes.io/storage-class: managed-nfs-storage
     spec:
       accessModes: [ "ReadWriteOnce" ]
       resources:
